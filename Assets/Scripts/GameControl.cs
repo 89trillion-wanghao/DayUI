@@ -16,6 +16,8 @@ public class GameControl : MonoBehaviour
     /// </summary>
     void Start()
     {
+       
+        Screen.SetResolution(1080, 1920, true);
         Instance = this;
         // 获取Json中的数据
         GetJson();

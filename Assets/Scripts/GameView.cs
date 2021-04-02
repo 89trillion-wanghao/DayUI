@@ -16,6 +16,7 @@ public class GameView : MonoBehaviour
     public void Init(Root r)
     {
 
+        Debug.Log(transform.position);
         // 保存数据
         this.r = r;
         
@@ -27,6 +28,11 @@ public class GameView : MonoBehaviour
         
         // 计算卡片的位置信息
         GetCardsPos();
+
+        foreach (var VARIABLE in cardsPos)
+        {
+            Debug.Log(VARIABLE);
+        }
         
         // 对卡牌进行初始化
         go = Resources.Load<CardPrefabItem>(Constants.CARD_PREFAB);
@@ -60,8 +66,8 @@ public class GameView : MonoBehaviour
     private void GetCardsPos()
     {
         cardsPos = new Vector3[6];
-        int startX = 190;
-        int startY = (int)(transform.position.y - 408);
+        int startX = -350;
+        int startY = 440;
         int disX = 350;
         int disY = 630;
         for(int i=0;i<cardsPos.Length;i++)
@@ -99,7 +105,8 @@ public class GameView : MonoBehaviour
     /// <param name="i">卡片ID</param>
     private void SetType2Card(int i)
     {
-        CardPrefabItem cardItem = Instantiate(go, cardsPos[i], Quaternion.identity, this.transform.parent.transform);
+        CardPrefabItem cardItem = Instantiate(go, transform.parent.transform);
+        cardItem.transform.localPosition = cardsPos[i];
         cardItem.cardPanelImg.sprite =atlas.GetSprite(Constants.COIN_BG_NAME);
         Color nowColoe;
         ColorUtility.TryParseHtmlString(Constants.COINS_TITLE_COLOR, out nowColoe);
@@ -121,7 +128,8 @@ public class GameView : MonoBehaviour
     private void SetType3Card(int i)
     {
         
-        CardPrefabItem cardItem = Instantiate(go, cardsPos[i], Quaternion.identity, transform.parent.transform);
+        CardPrefabItem cardItem = Instantiate(go, transform.parent.transform);
+        cardItem.transform.localPosition = cardsPos[i];
         cardItem.cardPanelImg.sprite = atlas.GetSprite(Constants.SOLDIER_BG_NAME);
         Color nowColoe;
         ColorUtility.TryParseHtmlString(Constants.SOLDIER_TITLE_COLOR, out nowColoe);
@@ -141,7 +149,8 @@ public class GameView : MonoBehaviour
     /// <param name="i">卡片ID</param>
     private void SetTypeNullCard(int i)
     {
-        CardPrefabItem cardItem = Instantiate(go, cardsPos[i], Quaternion.identity, this.transform.parent.transform);
+        CardPrefabItem cardItem = Instantiate(go, transform.parent.transform);
+        cardItem.transform.localPosition = cardsPos[i];
         cardItem.cardPanelImg.sprite = atlas.GetSprite(Constants.SOLDIER_BG_NAME);
         cardItem.titleText.gameObject.SetActive(false);
         cardItem.frameImg.sprite = atlas.GetSprite(Constants.COIN_FRANE_NAME);
